@@ -15,11 +15,21 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        // get all records
         $customers = Customer::sortable()
             ->latest()
             ->get();
-        // send to index view
+
+        foreach ($customers as $customer) {
+            if (strlen($customer->phone) == 10) {
+                $customer->phone =
+                    substr($customer->phone, 0, 3) .
+                    '-' .
+                    substr($customer->phone, 3, 3) .
+                    '-' .
+                    substr($customer->phone, 6, 4);
+            }
+        }
+
         return view('customers.index')->with(['customers' => $customers]);
     }
 
@@ -30,7 +40,6 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        // send to create page
         return view('customers.create');
     }
 
@@ -42,18 +51,16 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
-        // strip phone number
+        $request->flash();
 
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|unique:customers',
-            'phone' => 'required|regex:/(01)[0-9]{9}/',
+            'phone' => 'required',
             'priority' => 'required',
         ]);
-        // validate input
-        // format phone number
-        // update DB
+
         $customer = Customer::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
@@ -61,22 +68,12 @@ class CustomersController extends Controller
             'phone' => $request->input('phone'),
             'priority' => $request->input('priority'),
         ]);
-        // set message
-        // return to index
-        return redirect('/customers');
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // retrieve record
-        // send to show view
-        return view('customers.show')->with('obj');
+        session([
+            'status' => 'added',
+            'message' => 'Customer information added.',
+        ]);
+        return redirect('/customers');
     }
 
     /**
@@ -87,10 +84,7 @@ class CustomersController extends Controller
      */
     public function edit($id)
     {
-        // retrieve record
         $customer = Customer::find($id);
-
-        // send to edit page
         return view('customers.edit')->with('customer', $customer);
     }
 
@@ -103,15 +97,14 @@ class CustomersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // validate
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
-            'phone' => 'required|regex:/(01)[0-9]{9}/',
+            'phone' => 'required',
             'priority' => 'required',
         ]);
-        // update
+
         $customer = Customer::where('id', $id)->update([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
@@ -119,8 +112,11 @@ class CustomersController extends Controller
             'phone' => $request->input('phone'),
             'priority' => $request->input('priority'),
         ]);
-        // set message
-        // return to index listing
+
+        session([
+            'status' => 'updated',
+            'message' => 'Customer information updated.',
+        ]);
         return redirect('/customers');
     }
 
@@ -132,11 +128,13 @@ class CustomersController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        // delete record
         $customer->delete();
 
-        // set message
-        // return to index
+        session([
+            'status' => 'deleted',
+            'message' => 'Customer information deleted.',
+        ]);
+
         return redirect('/customers');
     }
 }

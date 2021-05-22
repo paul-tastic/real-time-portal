@@ -2,6 +2,27 @@
 @section('content')
 
 <div class="m-auto w-4/5 py-20">
+
+    <div name="alert-badge" style="height: 64px;">
+        {{-- Tailwinds CSS gave me fits about a dynamic status alert based on session variable. --}}
+        {{-- There's a better way to enact this, but in the interest of time I left it as is here. --}}
+        @if(Session::get('status') == 'added' || Session::get('status') == 'updated')
+            <div class="rounded" style="padding: 8px; background-color: rgb(176, 241, 176, 0.6);">
+                <p class="font-bold"  style="color: rgba(1, 102, 1);">Success!</p>
+                <p style="color: rgb(1, 102, 1);">{{ Session::get('message') }}</p>
+            </div>
+        @endif
+
+        @if(Session::get('status') == 'deleted')
+            <div class="rounded" style="padding: 8px; background-color: rgba(235, 164, 164, 0.6);">
+                <p class="font-bold"  style="color: rgb(126, 9, 9);">Success!</p>
+                <p style="color: rgb(126, 9, 9);">{{ Session::get('message') }}</p>
+            </div>
+        @endif
+        {!! Session::forget('status') !!}
+        {!! Session::forget('message') !!}
+    </div>
+
     <div class="text-center">
         <h1 class="text-3xl uppercase bold m-5">
             Customer Listing
@@ -22,6 +43,7 @@
             </tr>
 
                 @forelse ($customers as $customer)
+
                     <tr>
                         <td class="border px-8 py-4">{{ $customer->first_name }}</td>
                         <td class="border px-8 py-4">{{ $customer->last_name }}</td>

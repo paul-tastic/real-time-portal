@@ -17,28 +17,33 @@
                 type="text"
                 class="border block shadow-5xl mb-10 p-2 w-4/5 italic placeholder-gray-400"
                 name="first_name"
-                placeholder="First name...">
+                placeholder="First name..."
+                value={{ old('first_name') }}>
             <input 
                 type="text"
                 class="border block shadow-5xl mb-10 p-2 w-4/5 italic placeholder-gray-400"
                 name="last_name"
-                placeholder="Last name...">
+                placeholder="Last name..."
+                value={{ old('last_name') }}>
             <input 
                 type="email"
                 class="border block shadow-5xl mb-10 p-2 w-4/5 italic placeholder-gray-400"
                 name="email"
-                placeholder="Email...">
+                placeholder="Email..."
+                value={{ old('email') }}>
             <input 
                 type="text"
                 class="border block shadow-5xl mb-10 p-2 w-4/5 italic placeholder-gray-400"
                 name="phone"
-                placeholder="Phone number...">
-            <input 
+                placeholder="Phone number..."
+                value={{ old('phone') }}>
+                <input 
                 type="text"
                 class="border block shadow-5xl mb-10 p-2 w-4/5 italic placeholder-gray-400"
                 name="priority"
-                placeholder="Priority...">
-            <button type="submit" class="font-bold bg-green-500 shadow-5xl mb-10 p-2 w-2/5 uppercase">
+                placeholder="Priority..."
+                value={{ old('priority') }}>
+                <button type="submit" class="font-bold bg-green-500 shadow-5xl mb-10 p-2 w-2/5 uppercase">
             Add Customer
             </button>
             <a type="button" class="text-center font-bold bg-red-500 shadow-5xl mb-10 p-2 w-2/5 uppercase" href="{{ route('customers.index') }}">

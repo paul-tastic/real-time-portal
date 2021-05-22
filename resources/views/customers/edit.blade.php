@@ -19,32 +19,37 @@
                 type="text"
                 class="border block shadow-5xl mb-10 p-2 w-4/5 italic placeholder-gray-400"
                 name="first_name"
-                value="{{ $customer->first_name }}">
-            <label for="last_name">Last name</label>
+                value="{{ $customer->first_name }}"
+                value={{ old('first_name') }}>
+                <label for="last_name">Last name</label>
             <input 
                 type="text"
                 class="border block shadow-5xl mb-10 p-2 w-4/5 italic placeholder-gray-400"
                 name="last_name"
-                value="{{ $customer->last_name }}">
-            <label for="email">Email</label>
+                value="{{ $customer->last_name }}"
+                value={{ old('last_name') }}>
+                <label for="email">Email</label>
             <input 
                 type="email"
                 class="border block shadow-5xl mb-10 p-2 w-4/5 italic placeholder-gray-400"
                 name="email"
-                value="{{ $customer->email }}">
-            <label for="phone">Phone</label>
+                value="{{ $customer->email }}"
+                value={{ old('email') }}>
+                <label for="phone">Phone</label>
             <input 
                 type="text"
                 class="border block shadow-5xl mb-10 p-2 w-4/5 italic placeholder-gray-400"
                 name="phone"
-                value="{{ $customer->phone }}">
-            <label for="priority">Priority</label>
+                value="{{ $customer->phone }}"
+                value={{ old('phone') }}>
+                <label for="priority">Priority</label>
             <input 
                 type="text"
                 class="border block shadow-5xl mb-10 p-2 w-4/5 italic placeholder-gray-400"
                 name="priority"
-                value="{{ $customer->priority }}">
-            <button type="submit" class="font-bold bg-green-500 shadow-5xl mb-10 p-2 w-2/5 uppercase">
+                value="{{ $customer->priority }}"
+                value={{ old('priority') }}>
+                <button type="submit" class="font-bold bg-green-500 shadow-5xl mb-10 p-2 w-2/5 uppercase">
             Update Customer
             </button>
             <a type="button" class="text-center font-bold bg-red-500 shadow-5xl mb-10 p-2 w-2/5 uppercase" href="{{ route('customers.index') }}">
