@@ -40,6 +40,15 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
+        // strip phone number
+
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|unique:customers',
+            'phone' => 'required|regex:/(01)[0-9]{9}/',
+            'priority' => 'required',
+        ]);
         // validate input
         // format phone number
         // update DB
@@ -93,6 +102,13 @@ class CustomersController extends Controller
     public function update(Request $request, $id)
     {
         // validate
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'phone' => 'required|regex:/(01)[0-9]{9}/',
+            'priority' => 'required',
+        ]);
         // update
         $customer = Customer::where('id', $id)->update([
             'first_name' => $request->input('first_name'),
