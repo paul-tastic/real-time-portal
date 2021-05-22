@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
@@ -13,7 +15,12 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        return view('customers.index');
+        // get all records
+        $customers = DB::table('customers')
+            ->latest()
+            ->get();
+        // send to index view
+        return view('customers.index')->with(['customers' => $customers]);
     }
 
     /**
@@ -23,7 +30,8 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        //
+        // send to create page
+        return view('customers.create');
     }
 
     /**
@@ -34,7 +42,11 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate input
+        // update DB
+        // set message
+        // return to index
+        return view('customers.index');
     }
 
     /**
@@ -45,7 +57,9 @@ class CustomersController extends Controller
      */
     public function show($id)
     {
-        //
+        // retrieve record
+        // send to show view
+        return view('customers.show')->with('obj');
     }
 
     /**
@@ -56,7 +70,9 @@ class CustomersController extends Controller
      */
     public function edit($id)
     {
-        //
+        // retrieve record
+        // send to edit page
+        return view('customers.edit');
     }
 
     /**
@@ -68,7 +84,11 @@ class CustomersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validate
+        // update
+        // set message
+        // return to index listing
+        return view('customers.index');
     }
 
     /**
@@ -79,6 +99,9 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // delete record
+        // set message
+        // return to index
+        return view('customers.index');
     }
 }
