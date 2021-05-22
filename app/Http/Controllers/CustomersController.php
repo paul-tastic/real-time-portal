@@ -16,7 +16,9 @@ class CustomersController extends Controller
     public function index()
     {
         // get all records
-        $customers = Customer::latest()->get();
+        $customers = Customer::sortable()
+            ->latest()
+            ->get();
         // send to index view
         return view('customers.index')->with(['customers' => $customers]);
     }

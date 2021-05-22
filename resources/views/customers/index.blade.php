@@ -13,11 +13,11 @@
 
     <table class="table-auto shadow-lg bg-white m-auto w-100">
             <tr>
-                <th class="bg-blue-100 border text-left px-8 py-4">First</th>
-                <th class="bg-blue-100 border text-left px-8 py-4">Last</th>
-                <th class="bg-blue-100 border text-left px-8 py-4">Email</th>
-                <th class="bg-blue-100 border text-left px-8 py-4">Phone</th>
-                <th class="bg-blue-100 border text-left px-8 py-4">Priority</th>
+                <th class="bg-blue-100 border text-left px-8 py-4">@sortablelink('first_name', 'First')</th>
+                <th class="bg-blue-100 border text-left px-8 py-4">@sortablelink('last_name', 'Last')</th>
+                <th class="bg-blue-100 border text-left px-8 py-4">@sortablelink('email', 'Email')</th>
+                <th class="bg-blue-100 border text-left px-8 py-4">@sortablelink('phone', 'Phone')</th>
+                <th class="bg-blue-100 border text-left px-8 py-4">@sortablelink('priority', 'Priority')</th>
                 <th class="bg-blue-100 border text-left px-8 py-4">Actions</th>
             </tr>
 
