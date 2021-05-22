@@ -16,9 +16,7 @@ class CustomersController extends Controller
     public function index()
     {
         // get all records
-        $customers = DB::table('customers')
-            ->latest()
-            ->get();
+        $customers = Customer::latest()->get();
         // send to index view
         return view('customers.index')->with(['customers' => $customers]);
     }
@@ -43,10 +41,18 @@ class CustomersController extends Controller
     public function store(Request $request)
     {
         // validate input
+        // format phone number
         // update DB
+        $customer = Customer::create([
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'priority' => $request->input('priority'),
+        ]);
         // set message
         // return to index
-        return view('customers.index');
+        return redirect('/customers');
     }
 
     /**
@@ -71,8 +77,10 @@ class CustomersController extends Controller
     public function edit($id)
     {
         // retrieve record
+        $customer = Customer::find($id);
+
         // send to edit page
-        return view('customers.edit');
+        return view('customers.edit')->with('customer', $customer);
     }
 
     /**
@@ -86,9 +94,16 @@ class CustomersController extends Controller
     {
         // validate
         // update
+        $customer = Customer::where('id', $id)->update([
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'priority' => $request->input('priority'),
+        ]);
         // set message
         // return to index listing
-        return view('customers.index');
+        return redirect('/customers');
     }
 
     /**
@@ -97,11 +112,13 @@ class CustomersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Customer $customer)
     {
         // delete record
+        $customer->delete();
+
         // set message
         // return to index
-        return view('customers.index');
+        return redirect('/customers');
     }
 }
