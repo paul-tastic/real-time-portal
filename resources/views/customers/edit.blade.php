@@ -43,14 +43,14 @@
                 value="{{ $customer->phone }}"
                 value={{ old('phone') }}>
                 <label for="priority">Priority</label>
-            <input 
-                type="text"
-                class="border block shadow-5xl mb-10 p-2 w-4/5 italic placeholder-gray-400"
-                name="priority"
-                value="{{ $customer->priority }}"
-                value={{ old('priority') }}>
-                <button type="submit" class="font-bold bg-green-500 shadow-5xl mb-10 p-2 w-2/5 uppercase">
-            Update Customer
+            <select name="priority" class="border block shadow-5xl mb-10 p-2 w-4/5 italic text-gray-400">
+                <option value="select-option">Select Priority</option>
+                @foreach ($priorities as $priority)
+                    <option value="{{ $priority }}" {{ ($customer->priority == $priority) ? 'selected' : '' }}>{{ $priority }}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="font-bold bg-green-500 shadow-5xl mb-10 p-2 w-2/5 uppercase">
+                Update Customer
             </button>
             <a type="button" class="text-center font-bold bg-red-500 shadow-5xl mb-10 p-2 w-2/5 uppercase" href="{{ route('customers.index') }}">
                 Cancel

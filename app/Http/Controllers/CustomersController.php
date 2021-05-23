@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
@@ -40,7 +39,9 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        return view('customers.create');
+        $priorities = Customer::getPriorities();
+
+        return view('customers.create')->with('priorities', $priorities);
     }
 
     /**
@@ -58,7 +59,7 @@ class CustomersController extends Controller
             'last_name' => 'required',
             'email' => 'required|unique:customers',
             'phone' => 'required',
-            'priority' => 'required',
+            'priority' => 'required|integer',
         ]);
 
         $customer = Customer::create([
@@ -85,7 +86,12 @@ class CustomersController extends Controller
     public function edit($id)
     {
         $customer = Customer::find($id);
-        return view('customers.edit')->with('customer', $customer);
+        $priorities = $customer->getPriorities();
+
+        return view('customers.edit')->with([
+            'customer' => $customer,
+            'priorities' => $priorities,
+        ]);
     }
 
     /**
@@ -102,7 +108,7 @@ class CustomersController extends Controller
             'last_name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'priority' => 'required',
+            'priority' => 'required|integer',
         ]);
 
         $customer = Customer::where('id', $id)->update([

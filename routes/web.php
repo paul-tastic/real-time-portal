@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('launch')->name('launch');
+    return view('launch');
 });
 
 Route::resource('customers', CustomersController::class);

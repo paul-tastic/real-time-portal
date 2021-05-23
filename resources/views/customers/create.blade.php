@@ -37,13 +37,13 @@
                 name="phone"
                 placeholder="Phone number..."
                 value={{ old('phone') }}>
-                <input 
-                type="text"
-                class="border block shadow-5xl mb-10 p-2 w-4/5 italic placeholder-gray-400"
-                name="priority"
-                placeholder="Priority..."
-                value={{ old('priority') }}>
-                <button type="submit" class="font-bold bg-green-500 shadow-5xl mb-10 p-2 w-2/5 uppercase">
+            <select name="priority" class="border block shadow-5xl mb-10 p-2 w-4/5 italic text-gray-400">
+                <option value="select-option">Select Priority</option>
+                @foreach ($priorities as $priority)
+                    <option value="{{ $priority }}" {{ (old('priority') == $priority) ? 'selected' : '' }}>{{ $priority }}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="font-bold bg-green-500 shadow-5xl mb-10 p-2 w-2/5 uppercase">
             Add Customer
             </button>
             <a type="button" class="text-center font-bold bg-red-500 shadow-5xl mb-10 p-2 w-2/5 uppercase" href="{{ route('customers.index') }}">
@@ -52,14 +52,12 @@
         </div>
     </form>
 </div>
-@if ($errors->any())
-    <div class="w-4/8 m-auto text-center">
-        @foreach ($errors->all() as $error)
-            <li class="text-red-500 list-none">{{$error}}</li>
-        @endforeach
-    </div>
-@endif
-
+    @if ($errors->any())
+        <div class="w-4/8 m-auto text-center">
+            @foreach ($errors->all() as $error)
+                <li class="text-red-500 list-none">{{$error}}</li>
+            @endforeach
+        </div>
+    @endif
 </div>
-
-  @endsection
+@endsection

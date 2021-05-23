@@ -11,6 +11,8 @@ class Customer extends Model
     use HasFactory;
     use Sortable;
 
+    protected static $priorities = [1, 2, 3, 4];
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -26,4 +28,9 @@ class Customer extends Model
         'phone',
         'priority',
     ];
+
+    static function getPriorities()
+    {
+        return self::$priorities;
+    }
 }
